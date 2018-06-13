@@ -6,10 +6,15 @@
 	<h1>Olá! Thymeleaf configurado!</h1>
 	
 	<form method="POST">
-		<span th:text=${mensagem}></span>
-		<label>SKU</label>
-		<input type="text" name="sku"/>
-		<br>
+		<span th:text=${mensagem}></span><br>
+		<label for="sku">SKU</label>
+		<input type="text" name="sku"/><br>
+		
+		<label for="nome">Nome</label>
+		<input type="text" name="nome"/><br>
+		
+		<label for="descricao">Descrição</label>
+		<input type="text" name="descricao" />
 		
 		<input type="submit" value="Salvar"/>
 	</form>
