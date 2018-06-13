@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org">
 
 <body>
 	<h1>Olá! Thymeleaf configurado!</h1>
 	
 	<form method="POST">
+		<span th:text=${mensagem}></span>
 		<label>SKU</label>
 		<input type="text" name="sku"/>
 		<br>
