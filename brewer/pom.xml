@@ -18,9 +18,11 @@
   	<java.version>1.8</java.version>
   	<maven-compiler-plugin.version>3.2</maven-compiler-plugin.version>
   	
+  	<!-- Versões -->
   	<spring-framework.version>4.3.0.RELEASE</spring-framework.version>
   	<thymeleaf.version>3.0.0.RELEASE</thymeleaf.version>
   	<servlet.version>3.1.0</servlet.version>
+  	<hibernate-validator.version>5.2.4.Final</hibernate-validator.version>
   </properties>
   
   <build>
@@ -75,6 +77,12 @@
   		<artifactId>javax.servlet-api</artifactId>
   		<version>${servlet.version}</version>
   		<scope>provided</scope>
+  	</dependency>
+  	
+  	<dependency>
+  		<groupId>org.hibernate</groupId>
+  		<artifactId>hibernate-validator</artifactId>
+  		<version>${hibernate-validator.version}</version>
   	</dependency>
   </dependencies>
 </project>
