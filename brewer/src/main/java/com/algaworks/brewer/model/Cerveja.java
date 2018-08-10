@@ -1,4 +1,4 @@
-package model;
+package com.algaworks.brewer.model;
 
 import javax.validation.constraints.Size;
 
