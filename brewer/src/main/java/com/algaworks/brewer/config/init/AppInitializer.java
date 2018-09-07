@@ -6,6 +6,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
 import com.algaworks.brewer.config.JPAConfig;
+import com.algaworks.brewer.config.ServiceConfig;
 import com.algaworks.brewer.config.WebConfig;
 
 /* Configurações do Front Controller do Spring (DispatcherServlet) */
@@ -13,7 +14,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { JPAConfig.class }; // Registra as configurações
+		return new Class<?>[] { JPAConfig.class, ServiceConfig.class }; // Registra as configurações
 	}
 
 	/* Ensina o Spring onde achar os Controllers */
