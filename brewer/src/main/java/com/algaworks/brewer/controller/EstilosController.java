@@ -19,17 +19,18 @@ import com.algaworks.brewer.service.CadastroEstiloService;
 import com.algaworks.brewer.service.exception.NomeEstiloJaCadastradoException;
 
 @Controller
+@RequestMapping("/estilos")
 public class EstilosController {
 
 	@Autowired
 	private CadastroEstiloService cadastroEstiloService;
 	
-	@RequestMapping(value="/estilos/novo", method=RequestMethod.GET)
+	@RequestMapping(value="/novo", method=RequestMethod.GET)
 	public ModelAndView novo(Estilo estilo) {
 		return new ModelAndView("estilo/CadastroEstilo");
 	}
 	
-	@RequestMapping(value = "estilos/novo", method = RequestMethod.POST)
+	@RequestMapping(value = "/novo", method = RequestMethod.POST)
 	public ModelAndView cadastrar(@Valid Estilo estilo, BindingResult result, RedirectAttributes attributes) {
 		
 		if (result.hasErrors()) {
@@ -47,7 +48,7 @@ public class EstilosController {
 		return new ModelAndView("redirect:/estilos/novo");
 	}
 	
-	@RequestMapping(value = "/estilos", method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
+	@RequestMapping(method = RequestMethod.POST, consumes = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
 		
 		if (result.hasErrors()) {
