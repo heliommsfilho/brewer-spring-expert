@@ -52,17 +52,11 @@ public class EstilosController {
 	public @ResponseBody ResponseEntity<?> salvar(@RequestBody @Valid Estilo estilo, BindingResult result) {
 		
 		if (result.hasErrors()) {
-//			return ResponseEntity.badRequest().body(result.getFieldErrors());
+//			return ResponseEntity.badRequest().body(result.getFieldErrors()); ---> Mostra todos os erros
 			return ResponseEntity.badRequest().body(result.getFieldError("nome").getDefaultMessage());
 		}
 		
-		try {
-			estilo = cadastroEstiloService.salvar(estilo);
-		} catch(NomeEstiloJaCadastradoException e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
-		}
-		
-		System.out.println(">>> Estilo " + estilo.getNome());
+		estilo = cadastroEstiloService.salvar(estilo);
 		return ResponseEntity.ok(estilo);
 	}
 }
