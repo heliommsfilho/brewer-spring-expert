@@ -10,7 +10,7 @@
 	<Loggers>
 	
 		<!-- Definindo nível específico para determinado pacote -->
-		<Logger name="com.algaworks.brewer.controller" level="info"/>
+		<Logger name="com.algaworks.brewer.controller" level="debug"/>
 		
 		<Logger name="org.hibernate.SQL" level="debug"/>
 		
