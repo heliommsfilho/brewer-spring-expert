@@ -19,8 +19,7 @@ public class FotoStorageLocal implements FotoStorage {
 	private Path localTemporario;
 	
 	public FotoStorageLocal() {
-		this(FileSystems.getDefault().getPath(System.getenv("HOME"), ".brewerFotos"));
-		criarPastas();
+		this(FileSystems.getDefault().getPath(System.getenv("HOMEPATH"), ".brewerFotos"));
 	}
 
 	public FotoStorageLocal(Path path) {
@@ -34,6 +33,7 @@ public class FotoStorageLocal implements FotoStorage {
 			Files.createDirectories(this.local);
 			this.localTemporario = FileSystems.getDefault().getPath(this.local.toString(), "temp");
 			Files.createDirectories(this.localTemporario);
+			
 			
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("Pastas das fotos criadas");
