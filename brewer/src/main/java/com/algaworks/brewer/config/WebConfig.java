@@ -31,7 +31,6 @@ import com.algaworks.brewer.controller.converter.EstiloConverter;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
-import nz.net.ultraq.thymeleaf.context.LayoutContext;
 
 @Configuration
 @ComponentScan(basePackageClasses = CervejasController.class)
