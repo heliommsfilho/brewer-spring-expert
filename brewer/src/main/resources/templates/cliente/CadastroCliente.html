@@ -60,7 +60,7 @@
 					</div>
 					<div class="form-group  col-sm-8  bw-required" brewer:classforerror="email">
 						<label for="email" class="control-label">E-mail</label>
-						<input type="text" class="form-control" id="email" th:field="*{email}">
+						<input type="text" class="form-control" id="email" th:field="*{email}"  brewer:classforerror="email">
 					</div>
 				</div>
 		
@@ -85,7 +85,7 @@
 					</div>
 					<div class="form-group  col-sm-4  bw-required">
 						<label for="estado" class="control-label">Estado</label>
-						<select id="estado" class="form-control">
+						<select id="estado" class="form-control" th:field="*{endereco.estado}">
 							<option value="">Selecione o estado</option>
 							<option th:each="estado: ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}"></option>
 						</select>
@@ -93,6 +93,7 @@
 					<div class="form-group  col-sm-4">
 						<label for="cidade" class="control-label">Cidade</label>
 						<div class="bw-field-action">
+						<input type="hidden" id="inputHiddenCidadeSelecionada" th:value="*{endereco.cidade} != null ? *{endereco.cidade.codigo}"/>
 							<select id="cidade" class="form-control" data:url="@{/cidades}" th:field="*{endereco.cidade}">
 							</select>	
 							
