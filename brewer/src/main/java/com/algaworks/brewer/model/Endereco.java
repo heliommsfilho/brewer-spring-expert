@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
 
 @Embeddable
@@ -19,6 +20,7 @@ public class Endereco implements Serializable{
 	@Transient
 	private Estado estado;
 	
+	@ManyToOne
 	@JoinColumn(name = "codigo_cidade")
 	private Cidade cidade;
 	
