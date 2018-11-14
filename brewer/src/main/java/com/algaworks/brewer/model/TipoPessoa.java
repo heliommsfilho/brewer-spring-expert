@@ -51,4 +51,8 @@ public enum TipoPessoa {
 	public void setMascara(String mascara) {
 		this.mascara = mascara;
 	}
+	
+	public static String removerFormatacao(String cpfOuCnpj) {
+		return cpfOuCnpj.replaceAll("\\.|-|/", "");
+	}
 }
