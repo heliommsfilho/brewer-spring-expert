@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.MediaType;
@@ -70,7 +71,7 @@ public class CidadesController {
 	
 	@GetMapping
 	public ModelAndView pesquisar(CidadeFilter cidadeFilter, BindingResult result, 
-																@PageableDefault(size = 2) Pageable pageable,
+																@PageableDefault(size = 10) Pageable pageable,
 																HttpServletRequest httpServletRequest) {
 		ModelAndView mv = new ModelAndView("cidade/PesquisaCidades");
 		mv.addObject("estados", estados.findAll());
@@ -81,6 +82,7 @@ public class CidadesController {
 		return mv;
 	}
 	
+	@Cacheable("cidades")
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<Cidade> pesquisarPorCodigoEstado(@RequestParam(name = "estado", defaultValue = "-1") Long codigoEstado) {
 		return cidades.findByEstadoCodigo(codigoEstado);
