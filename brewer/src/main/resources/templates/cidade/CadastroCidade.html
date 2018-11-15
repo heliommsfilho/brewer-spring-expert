@@ -2,6 +2,7 @@
 <html lang="pt" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:brewer="http://brewer.algaworks.com"
 	layout:decorate="layout/LayoutPadrao">
 	
 	<head>
@@ -17,18 +18,21 @@
 	</div>
 	
 	<div class="container-fluid">
-		<form>
+		<form method="POST" th:object="${cidade}" th:action="@{/cidades/novo}">
+			<brewer:message/>
+			
 			<div class="row">
-				<div class="form-group  col-sm-4  bw-required">
+				<div class="form-group  col-sm-4  bw-required" brewer:classforerror="estado">
 					<label for="estado" class="control-label">Estado</label>
-					<select id="estado" class="form-control">
+					<select id="estado" class="form-control" th:field="*{estado}">
 						<option value="">Selecione o estado</option>
+						<option th:each="estado : ${estados}" th:value="${estado.codigo}" th:text="${estado.nome}">Bahia</option>
 					</select>
 				</div>
 				
-				<div class="form-group  col-sm-8  bw-required">
+				<div class="form-group  col-sm-8  bw-required" brewer:classforerror="nome">
 					<label for="nome" class="control-label">Nome</label>
-					<input type="text" class="form-control" id="nome" autofocus="autofocus">
+					<input type="text" class="form-control" id="nome" autofocus="autofocus" th:field="*{nome}">
 				</div>
 			</div>
 			
