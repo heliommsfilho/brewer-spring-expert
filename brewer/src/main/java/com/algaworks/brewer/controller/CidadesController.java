@@ -23,11 +23,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.model.Cidade;
-import com.algaworks.brewer.model.Cliente;
 import com.algaworks.brewer.repository.Cidades;
 import com.algaworks.brewer.repository.Estados;
 import com.algaworks.brewer.repository.filter.CidadeFilter;
-import com.algaworks.brewer.repository.filter.ClienteFilter;
 import com.algaworks.brewer.service.CadastroCidadeService;
 import com.algaworks.brewer.service.exception.NomeCidadeJaCadastradaException;
 
