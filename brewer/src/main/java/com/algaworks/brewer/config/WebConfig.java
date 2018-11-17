@@ -38,6 +38,7 @@ import com.algaworks.brewer.controller.CervejasController;
 import com.algaworks.brewer.controller.converter.CidadeConveter;
 import com.algaworks.brewer.controller.converter.EstadoConveter;
 import com.algaworks.brewer.controller.converter.EstiloConverter;
+import com.algaworks.brewer.controller.converter.GrupoConveter;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -89,6 +90,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new EstiloConverter());
 		conversionService.addConverter(new CidadeConveter());
 		conversionService.addConverter(new EstadoConveter());
+		conversionService.addConverter(new GrupoConveter());
 		
 		// Define o formato esperado para os números da aplicação (sensível à linguagem do navegador)
 		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
