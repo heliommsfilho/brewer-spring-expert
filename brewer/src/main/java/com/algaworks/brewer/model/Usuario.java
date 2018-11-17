@@ -38,7 +38,6 @@ public class Usuario implements Serializable {
 	private Boolean ativo;
 	
 	@Column(name = "data_nascimento")
-	@NotNull(message = "Data de nascimento é obrigatória")
 	private LocalDate dataNascimento;
 	
 	@NotNull(message = "Selecione pelo menos um grupo")
@@ -85,6 +84,12 @@ public class Usuario implements Serializable {
 		this.dataNascimento = dataNascimento;
 	}
 	
+	public List<Grupo> getGrupos() {
+		return grupos;
+	}
+	public void setGrupos(List<Grupo> grupos) {
+		this.grupos = grupos;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
