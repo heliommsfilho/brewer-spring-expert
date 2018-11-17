@@ -13,12 +13,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.algaworks.brewer.model.validation.AtributoConfirmacao;
+
 @Entity
 @Table(name = "usuario")
+@AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -6473799305435091198L;
@@ -34,6 +38,9 @@ public class Usuario implements Serializable {
 	private String email;
 	
 	private String senha;
+	
+	@Transient
+	private String confirmacaoSenha;
 	
 	private Boolean ativo;
 	
@@ -86,6 +93,14 @@ public class Usuario implements Serializable {
 	
 	public List<Grupo> getGrupos() {
 		return grupos;
+	}
+	
+	
+	public String getConfirmacaoSenha() {
+		return confirmacaoSenha;
+	}
+	public void setConfirmacaoSenha(String confirmacaoSenha) {
+		this.confirmacaoSenha = confirmacaoSenha;
 	}
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
