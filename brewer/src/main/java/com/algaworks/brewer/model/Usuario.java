@@ -95,7 +95,6 @@ public class Usuario implements Serializable {
 		return grupos;
 	}
 	
-	
 	public String getConfirmacaoSenha() {
 		return confirmacaoSenha;
 	}
@@ -105,6 +104,11 @@ public class Usuario implements Serializable {
 	public void setGrupos(List<Grupo> grupos) {
 		this.grupos = grupos;
 	}
+	
+	public boolean isNovo() {
+		return codigo == null;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,6 +116,7 @@ public class Usuario implements Serializable {
 		result = prime * result + ((codigo == null) ? 0 : codigo.hashCode());
 		return result;
 	}
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
