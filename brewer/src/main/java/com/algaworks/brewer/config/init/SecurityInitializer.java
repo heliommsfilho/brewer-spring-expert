@@ -1,7 +1,10 @@
 package com.algaworks.brewer.config.init;
 
+import java.util.EnumSet;
+
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
+import javax.servlet.SessionTrackingMode;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -10,6 +13,12 @@ public class SecurityInitializer extends AbstractSecurityWebApplicationInitializ
 
 	@Override
 	protected void beforeSpringSecurityFilterChain(ServletContext servletContext) {
+		// Define um tempo em segundos para expirar a sessão
+//		servletContext.getSessionCookieConfig().setMaxAge(20);
+		
+		// Coloca o jsessionId em cookies e não na URL
+		servletContext.setSessionTrackingModes(EnumSet.of(SessionTrackingMode.COOKIE));
+		
 		FilterRegistration.Dynamic characterEncodingFilter = servletContext.addFilter("encodingFilter",
 				new CharacterEncodingFilter());
 		characterEncodingFilter.setInitParameter("encoding", "UTF-8");

@@ -48,7 +48,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.logout()
 					.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 					.and()
-					.exceptionHandling().accessDeniedPage("/403");
+					.exceptionHandling().accessDeniedPage("/403")
+			.and()
+				.sessionManagement()
+					.invalidSessionUrl("/login");
 		
 // Não permitir que o mesmo usuário tenha mais de uma sessão ativa
 //					.and()
