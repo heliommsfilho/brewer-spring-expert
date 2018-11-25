@@ -36,8 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-				.anyRequest()
-					.authenticated()
+				.antMatchers("cidades/nova").hasRole("CADASTRAR_CIDADE")
+				.antMatchers("usuarios/**").hasRole("CADASTRAR_USUARIO")
+				.anyRequest().authenticated()
 			.and()
 				.formLogin()
 					.loginPage("/login")
