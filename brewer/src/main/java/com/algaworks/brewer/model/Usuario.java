@@ -12,10 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
+import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.validator.constraints.NotBlank;
 
 import com.algaworks.brewer.model.validation.AtributoConfirmacao;
@@ -23,6 +25,7 @@ import com.algaworks.brewer.model.validation.AtributoConfirmacao;
 @Entity
 @Table(name = "usuario")
 @AtributoConfirmacao(atributo = "senha", atributoConfirmacao = "confirmacaoSenha", message = "Confirmação da senha não confere")
+@DynamicUpdate
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = -6473799305435091198L;
@@ -53,6 +56,11 @@ public class Usuario implements Serializable {
 						 joinColumns = @JoinColumn(name = "codigo_usuario"),
 						 inverseJoinColumns = @JoinColumn(name = "codigo_grupo"))
 	private List<Grupo> grupos;
+	
+	@PreUpdate
+	public void preUpdate() {
+		this.confirmacaoSenha = senha;
+	}
 	
 	public Long getCodigo() {
 		return codigo;
