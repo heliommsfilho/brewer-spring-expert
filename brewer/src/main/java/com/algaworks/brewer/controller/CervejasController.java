@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -87,7 +88,7 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@GetMapping("/filtro")
+	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
 		return cervejas.porSkuOuNome(skuOuNome);
 	}
