@@ -9,7 +9,7 @@
 	<title>Cadastro de venda</title>
 	
 	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.min.css}"/>
-	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.theme.min.css}"/>
+	<link rel="stylesheet" th:href="@{/stylesheets/vendors/easy-autocomplete.themes.min.css}"/>
 </head>
 
 <section layout:fragment="conteudo">
@@ -191,6 +191,7 @@
 	<script th:src="@{/javascripts/vendors/handlebars.min.js}"></script>
 	<script th:src="@{/javascripts/cliente.pesquisa-rapida.js}"></script>
 	<script th:src="@{/javascripts/venda.autocomplete-itens.js}"></script>
+	<script th:src="@{/javascripts/venda.tabela-itens.js}"></script>
 	<script>
 		$(function() {
 			$('.js-abas-venda a').click(function (e) {
