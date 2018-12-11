@@ -11,7 +11,7 @@ public class ItemVenda implements Serializable {
 	private Integer quantidade;
 	private BigDecimal valorUnitario;
 	private Cerveja cerveja;
-	
+
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -28,20 +28,20 @@ public class ItemVenda implements Serializable {
 		this.quantidade = quantidade;
 	}
 
-	public Cerveja getCerveja() {
-		return cerveja;
-	}
-
-	public void setCerveja(Cerveja cerveja) {
-		this.cerveja = cerveja;
-	}
-	
 	public BigDecimal getValorUnitario() {
 		return valorUnitario;
 	}
 
 	public void setValorUnitario(BigDecimal valorUnitario) {
 		this.valorUnitario = valorUnitario;
+	}
+
+	public Cerveja getCerveja() {
+		return cerveja;
+	}
+
+	public void setCerveja(Cerveja cerveja) {
+		this.cerveja = cerveja;
 	}
 	
 	public BigDecimal getValorTotal() {
