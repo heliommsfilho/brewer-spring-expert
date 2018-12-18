@@ -41,7 +41,7 @@ import com.algaworks.brewer.controller.converter.CidadeConveter;
 import com.algaworks.brewer.controller.converter.EstadoConveter;
 import com.algaworks.brewer.controller.converter.EstiloConverter;
 import com.algaworks.brewer.controller.converter.GrupoConveter;
-import com.algaworks.brewer.session.TabelaItensVenda;
+import com.algaworks.brewer.session.TabelaItensSession;
 import com.algaworks.brewer.thymeleaf.BrewerDialect;
 import com.github.mxab.thymeleaf.extras.dataattribute.dialect.DataAttributeDialect;
 import com.google.common.cache.CacheBuilder;
@@ -49,7 +49,7 @@ import com.google.common.cache.CacheBuilder;
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 
 @Configuration
-@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItensVenda.class })
+@ComponentScan(basePackageClasses = { CervejasController.class, TabelaItensSession.class })
 @EnableWebMvc
 @EnableSpringDataWebSupport
 @EnableCaching
@@ -153,6 +153,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		return bundle;
 	}
 	
+	/* Permite receber uma entidade direto  */
 	@Bean
 	public DomainClassConverter<?> domainClassConverter() {
 		return new DomainClassConverter<FormattingConversionService>(mvcConversionService());
