@@ -74,6 +74,10 @@ public class ItemVenda implements Serializable {
 	public void setVenda(Venda venda) {
 		this.venda = venda;
 	}
+	
+	public BigDecimal getValorTotal() {
+		return valorUnitario.multiply(new BigDecimal(quantidade));
+	}	
 
 	@Override
 	public int hashCode() {
