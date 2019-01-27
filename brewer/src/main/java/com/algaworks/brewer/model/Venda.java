@@ -5,7 +5,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +46,7 @@ public class Venda implements Serializable {
 	
 	@NotNull
 	@Column(name = "valor_total")
-	private BigDecimal valorTotal;
+	private BigDecimal valorTotal = BigDecimal.ZERO;
 	
 	@NotNull
 	@Enumerated(EnumType.STRING)
@@ -64,7 +66,7 @@ public class Venda implements Serializable {
 	private Usuario usuario;
 	
 	@OneToMany(mappedBy = "venda", cascade = CascadeType.ALL)
-	private List<ItemVenda> itens;
+	private List<ItemVenda> itens = new ArrayList<>();
 	
 	@Transient
 	private String uuid;
@@ -189,6 +191,23 @@ public class Venda implements Serializable {
 	
 	public boolean isNova() {
 		return codigo == null;
+	}
+	
+	public void calcularValorTotal() {
+		
+		BigDecimal valorTotalItens = getItens().stream()
+				.map(ItemVenda::getValorTotal)
+				.reduce(BigDecimal::add)
+				.orElse(BigDecimal.ZERO);
+		
+		this.valorTotal = calcularValorTotal(valorTotalItens, getValorFrete(), getValorDesconto());
+	}
+	
+	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
+		BigDecimal valorTotal = valorTotalItens
+				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
+				.subtract(Optional.ofNullable(valorDesconto).orElse(BigDecimal.ZERO));
+		return valorTotal;
 	}
 
 	@Override
