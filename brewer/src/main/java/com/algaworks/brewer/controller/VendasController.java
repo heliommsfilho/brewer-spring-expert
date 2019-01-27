@@ -64,13 +64,9 @@ public class VendasController {
 		binder.setValidator(vendaValidator);
 	}
 	
-	@PostMapping("/nova")
+	@PostMapping(value="/nova", params="salvar")
 	public ModelAndView salvar(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
-		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
-		venda.calcularValorTotal();
-		
-		/* Aciona a validação manualmente (evita usar @Valid) */
-		vendaValidator.validate(venda, result);
+		validarVenda(venda, result);
 		
 		if (result.hasErrors()) {
 			return novo(venda);
@@ -80,6 +76,36 @@ public class VendasController {
 		
 		cadastroVendaService.salvar(venda);
 		attributes.addFlashAttribute("mensagem", "Venda salva com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+	
+	@PostMapping(value="/nova", params="emitir")
+	public ModelAndView emitir(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		validarVenda(venda, result);
+		
+		if (result.hasErrors()) {
+			return novo(venda);
+		}
+		
+		venda.setUsuario(usuarioSistema.getUsuario());
+		
+		cadastroVendaService.emitir(venda);
+		attributes.addFlashAttribute("mensagem", "Venda emitida com sucesso");
+		return new ModelAndView("redirect:/vendas/nova");
+	}
+	
+	@PostMapping(value="/nova", params="enviarEmail")
+	public ModelAndView enviarEmail(Venda venda, BindingResult result, RedirectAttributes attributes, @AuthenticationPrincipal UsuarioSistema usuarioSistema) {
+		validarVenda(venda, result);
+		
+		if (result.hasErrors()) {
+			return novo(venda);
+		}
+		
+		venda.setUsuario(usuarioSistema.getUsuario());
+		
+		cadastroVendaService.salvar(venda);
+		attributes.addFlashAttribute("mensagem", "Venda salva e e-mail enviado");
 		return new ModelAndView("redirect:/vendas/nova");
 	}
 	
@@ -110,5 +136,13 @@ public class VendasController {
 		mv.addObject("valorTotal", tabelaItens.getValorTotal(uuid));
 		
 		return mv;
+	}
+	
+	private void validarVenda(Venda venda, BindingResult result) {
+		venda.adicionarItens(tabelaItens.getItens(venda.getUuid()));
+		venda.calcularValorTotal();
+		
+		/* Aciona a validação manualmente (evita usar @Valid) */
+		vendaValidator.validate(venda, result);
 	}
 }
