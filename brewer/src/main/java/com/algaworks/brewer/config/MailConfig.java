@@ -29,13 +29,16 @@ public class MailConfig {
 		mailSender.setPort(587);
 		mailSender.setUsername(env.getProperty("email.username"));
 		mailSender.setPassword(env.getProperty("password"));
+		
+		System.out.println("API Username: " + env.getProperty("email.username"));
+		System.out.println("API Password: " + env.getProperty("password"));
 
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
 		props.put("mail.smtp.auth", true);
 		props.put("mail.smtp.starttls.enable", true);
 		props.put("mail.debug", false);
-		props.put("mail.smtp.connectiontimeout", 5000); // millseconds
+		props.put("mail.smtp.connectiontimeout", 10000); // millseconds
 		
 		mailSender.setJavaMailProperties(props);
 		

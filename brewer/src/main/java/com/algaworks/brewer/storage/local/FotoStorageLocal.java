@@ -7,8 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
 
-import javax.management.RuntimeErrorException;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,6 +56,11 @@ public class FotoStorageLocal implements FotoStorage {
 		} catch (IOException e) {
 			throw new RuntimeException("Erro ao ler a foto temporária");
 		}
+	}
+	
+	@Override
+	public byte[] recuperarThumbnail(String fotoCerveja) {
+		return recuperar("thumbnail." + fotoCerveja);
 	}
 
 	@Override

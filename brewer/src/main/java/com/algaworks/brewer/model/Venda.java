@@ -203,6 +203,12 @@ public class Venda implements Serializable {
 		this.valorTotal = calcularValorTotal(valorTotalItens, getValorFrete(), getValorDesconto());
 	}
 	
+	public BigDecimal getValorTotalItens() {
+		return getItens().stream().map(ItemVenda::getValorTotal)
+								  .reduce(BigDecimal::add)
+								  .orElse(BigDecimal.ZERO);
+	}
+	
 	private BigDecimal calcularValorTotal(BigDecimal valorTotalItens, BigDecimal valorFrete, BigDecimal valorDesconto) {
 		BigDecimal valorTotal = valorTotalItens
 				.add(Optional.ofNullable(valorFrete).orElse(BigDecimal.ZERO))
