@@ -59,8 +59,8 @@ public class CervejasController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/novo", method = RequestMethod.POST)
-	public ModelAndView cadastrar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes) {
+	@RequestMapping(value = {"/novo", "{\\d+}"}, method = RequestMethod.POST)
+	public ModelAndView salvar(@Valid Cerveja cerveja, BindingResult result, RedirectAttributes attributes) {
 		
 		if (result.hasErrors()) {
 			return novo(cerveja);
@@ -95,6 +95,14 @@ public class CervejasController {
 	@RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public @ResponseBody List<CervejaDTO> pesquisar(String skuOuNome) {
 		return cervejas.porSkuOuNome(skuOuNome);
+	}
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable("codigo") Cerveja cerveja) {
+		ModelAndView mv = novo(cerveja);
+		mv.addObject(cerveja);
+		
+		return mv;
 	}
 	
 	@DeleteMapping("/{codigo}")
