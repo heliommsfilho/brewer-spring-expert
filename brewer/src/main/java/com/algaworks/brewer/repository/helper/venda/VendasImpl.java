@@ -12,6 +12,7 @@ import org.hibernate.Session;
 import org.hibernate.criterion.MatchMode;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.sql.JoinType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,6 +44,17 @@ public class VendasImpl implements VendasQueries {
 		
 		List<Venda> vendas = criteria.list();
 		return new PageImpl<>(vendas, pageable, total(filter));
+	}
+	
+	@Transactional(readOnly = true)
+	@Override
+	public Venda buscarComItens(Long codigo) {
+		Criteria criteria = manager.unwrap(Session.class).createCriteria(Venda.class);
+		criteria.createAlias("itens", "i", JoinType.LEFT_OUTER_JOIN);
+		criteria.add(Restrictions.eq("codigo", codigo));
+		criteria.setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY);
+		
+		return (Venda) criteria.uniqueResult();
 	}
 
 	private void adicionarFiltros(VendaFilter filter, Criteria criteria) {
@@ -92,4 +104,5 @@ public class VendasImpl implements VendasQueries {
 		criteria.setProjection(Projections.rowCount());
 		return (Long) criteria.uniqueResult();
 	}
+
 }
