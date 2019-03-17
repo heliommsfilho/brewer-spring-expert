@@ -13,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,6 +31,7 @@ import com.algaworks.brewer.repository.Estados;
 import com.algaworks.brewer.repository.filter.ClienteFilter;
 import com.algaworks.brewer.service.CadastroClienteService;
 import com.algaworks.brewer.service.exception.CpfCnpjClienteJaCadastradoException;
+import com.algaworks.brewer.service.exception.ImpossivelExcluirEntidadeException;
 
 @Controller
 @RequestMapping("/clientes")
@@ -52,7 +55,7 @@ public class ClientesController {
 		return mv;
 	}
 	
-	@PostMapping("/novo")
+	@PostMapping({"/novo", "{\\d+}"})
 	public ModelAndView salvar(@Valid Cliente cliente, BindingResult result, RedirectAttributes attributes) {
 		
 		if (result.hasErrors()) {
@@ -86,7 +89,31 @@ public class ClientesController {
 		validarTamanho(nome);
 		return clientes.findByNomeStartingWithIgnoringCase(nome);
 	}
-
+	
+	@GetMapping("/{codigo}")
+	public ModelAndView editar(@PathVariable Long codigo) {
+		Cliente cliente = clientes.buscarClienteComEnderecoCompleto(codigo);
+		cliente.getEndereco().setEstado(cliente.getEndereco().getCidade().getEstado());
+		
+		ModelAndView mv = novo(cliente);
+		mv.addObject(cliente);
+		mv.addObject("estados", estados.findAll());
+		
+		return mv;
+	}
+	
+	@DeleteMapping("/{codigo}")
+	public ResponseEntity<?> excluir(@PathVariable("codigo") Cliente cliente) {
+		
+		try {
+			cadastroClienteService.excluir(cliente);
+		} catch(ImpossivelExcluirEntidadeException e) {
+			return ResponseEntity.badRequest().build();
+		}
+		
+		return ResponseEntity.ok().build();
+	}
+	
 	private void validarTamanho(String nome) {
 		
 		if (StringUtils.isEmpty(nome) || nome.length() < 3) {

@@ -20,9 +20,12 @@
 	
 		<th:block th:include="fragments/MensagemSucesso"></th:block>
 		
-		<form method="POST" th:object="${estilo}" th:action="@{/estilos/novo}" class="form-vertical  js-form-loading">
+		<form method="POST" th:object="${estilo}" 
+		      th:action= "${estilo.novo} ? @{/estilos/novo} : @{/estilos/{codigo}(codigo=${estilo.codigo})}" class="form-vertical  js-form-loading">
 			
 			<th:block th:include="fragments/MensagensErroValidacao" ></th:block>
+			
+			<input type="hidden" th:field="*{codigo}">
 			
 			<div class="row">
 				<div class="form-group  col-sm-12  bw-required" th:classappend="${#fields.hasErrors('nome')} ? has-error">

@@ -14,5 +14,5 @@ public interface Clientes extends JpaRepository<Cliente, Long>, ClientesQueries 
 
 	Optional<Cliente> findByCpfOuCnpj(String cpfOuCnpj);
 
-	List<Cliente> findByNomeStartingWithIgnoringCase(String nome);
+	List<Cliente> findByNomeStartingWithIgnoringCase(String nome);	
 }

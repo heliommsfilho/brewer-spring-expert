@@ -32,6 +32,7 @@
 			<form method="POST" th:object="${cliente}" th:action="@{/clientes/novo}">
 				<brewer:message/>
 				
+				<input type="hidden" th:field="*{codigo}">
 				<div class="row">
 					<div class="form-group  col-sm-12  bw-required" brewer:classforerror="nome">
 						<label for="nome" class="control-label">Nome</label>

@@ -9,4 +9,5 @@ import com.algaworks.brewer.repository.filter.ClienteFilter;
 public interface ClientesQueries {
 
 	Page<Cliente> filtrar(ClienteFilter filter, Pageable page);
+	Cliente buscarClienteComEnderecoCompleto(Long codigo);
 }
