@@ -1,5 +1,6 @@
 package com.algaworks.brewer.controller;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.algaworks.brewer.controller.page.PageWrapper;
 import com.algaworks.brewer.controller.validator.VendaValidator;
+import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.mail.Mailer;
 import com.algaworks.brewer.model.Cerveja;
 import com.algaworks.brewer.model.ItemVenda;
@@ -193,6 +195,11 @@ public class VendasController {
 		mv.addObject("valorTotal", tabelaItens.getValorTotal(uuid));
 		
 		return mv;
+	}
+	
+	@GetMapping("/totalPorMes")
+	public @ResponseBody List<VendaMes> listarTotalVendasPorMes() {
+		return vendas.totalPorMes();
 	}
 	
 	private void validarVenda(Venda venda, BindingResult result) {

@@ -1,32 +1,35 @@
-this.Brewer = Brewer || {};
+var Brewer = Brewer || {};
 
-Brewer.UploadFoto= (function(){
+Brewer.UploadFoto = (function() {
 	
 	function UploadFoto() {
 		this.inputNomeFoto = $('input[name=foto]');
 		this.inputContentType = $('input[name=contentType]');
+		this.novaFoto = $('input[name=novaFoto]');
+		
 		this.htmlFotoCervejaTemplate = $('#foto-cerveja').html();
 		this.template = Handlebars.compile(this.htmlFotoCervejaTemplate);
+		
 		this.containerFotoCerveja = $('.js-container-foto-cerveja');
+		
 		this.uploadDrop = $('#upload-drop');
-		this.novaFoto = $('input[name=novaFoto]');
 	}
 	
-	UploadFoto.prototype.iniciar = function() {
+	UploadFoto.prototype.iniciar = function () {
 		var settings = {
-				type: 'json',
-				filelimit: 1,
-				allow: '*.(jpg|jpeg|png)',
-				action: this.containerFotoCerveja.data('url-fotos'),
-				complete: onUploadCompleto.bind(this),
-				beforeSend: AdicionarCsrfToken
+			type: 'json',
+			filelimit: 1,
+			allow: '*.(jpg|jpeg|png)',
+			action: this.containerFotoCerveja.data('url-fotos'),
+			complete: onUploadCompleto.bind(this),
+			beforeSend: adicionarCsrfToken
 		}
 		
 		UIkit.uploadSelect($('#upload-select'), settings);
 		UIkit.uploadDrop(this.uploadDrop, settings);
 		
 		if (this.inputNomeFoto.val()) {
-			renderizarFoto.call(this, {nome: this.inputNomeFoto.val(), contentType: this.inputContentType.val()});
+			renderizarFoto.call(this, { nome:  this.inputNomeFoto.val(), contentType: this.inputContentType.val()});
 		}
 	}
 	
@@ -36,21 +39,18 @@ Brewer.UploadFoto= (function(){
 	}
 	
 	function renderizarFoto(resposta) {
-		
-		this.inputNomeFoto.val(resposta.nome); //th:field automaticamente define o name=field
+		this.inputNomeFoto.val(resposta.nome);
 		this.inputContentType.val(resposta.contentType);
 		
 		this.uploadDrop.addClass('hidden');
 		
 		var foto = '';
-		
 		if (this.novaFoto.val() == 'true') {
 			foto = 'temp/';
 		}
-		
 		foto += resposta.nome;
 		
-		var htmlFotoCerveja = this.template({foto: foto})
+		var htmlFotoCerveja = this.template({foto: foto});
 		this.containerFotoCerveja.append(htmlFotoCerveja);
 		
 		$('.js-remove-foto').on('click', onRemoverFoto.bind(this));
@@ -64,13 +64,14 @@ Brewer.UploadFoto= (function(){
 		this.novaFoto.val('false');
 	}
 	
-	function AdicionarCsrfToken(xhr) {
-		var token  = $('input[name=_csrf]').val();
+	function adicionarCsrfToken(xhr) {
+		var token = $('input[name=_csrf]').val();
 		var header = $('input[name=_csrf_header]').val();
 		xhr.setRequestHeader(header, token);
 	}
 	
 	return UploadFoto;
+	
 })();
 
 $(function() {
