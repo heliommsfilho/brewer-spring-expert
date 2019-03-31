@@ -19,8 +19,8 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-xs-10">
-					<h1 th:if="${venda.nova}">Cadastro de vendas</h1>
-					<h1 th:unless="${venda.nova}">Edição da venda nº [[${venda.codigo}]]</h1>
+					<h1 th:if="${venda.nova}" th:text="#{venda.cadastro.titulo}">Cadastro de vendas</h1>
+					<h1 th:unless="${venda.nova}" th:text="#{venda.edicao.titulo(${venda.codigo})}"></h1>
 				</div>
 			</div>
 		</div>

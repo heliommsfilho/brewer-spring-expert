@@ -99,8 +99,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		conversionService.addConverter(new GrupoConveter());
 		
 		// Define o formato esperado para os números da aplicação (sensível à linguagem do navegador)
-		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
-		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+//		NumberStyleFormatter bigDecimalFormatter = new NumberStyleFormatter("#,##0.00");
+//		NumberStyleFormatter integerFormatter = new NumberStyleFormatter("#,##0");
+		
+		BigDecimalFormatter bigDecimalFormatter = new BigDecimalFormatter("#,##0.00");
+		BigDecimalFormatter integerFormatter = new BigDecimalFormatter("#,##0");
 		
 		conversionService.addFormatterForFieldType(BigDecimal.class, bigDecimalFormatter);
 		conversionService.addFormatterForFieldType(Integer.class, integerFormatter);
@@ -115,10 +118,10 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 	}
 	
 	// Força o Spring a interpretar o formato dos números como sendo pt-BR (independente da configuração do browser)
-	@Bean
-	public LocaleResolver localeResolver() {
-		return new FixedLocaleResolver(new Locale("pt", "BR"));
-	}
+//	@Bean
+//	public LocaleResolver localeResolver() {
+//		return new FixedLocaleResolver(new Locale("pt", "BR"));
+//	}
 	
 	/* Configura onde achar os templates */
 	private ITemplateResolver templateResolver() {
