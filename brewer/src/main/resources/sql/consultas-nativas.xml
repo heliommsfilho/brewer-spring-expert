@@ -16,29 +16,10 @@
 	    </query>
 	</named-native-query>
 	
-	<named-native-query name="Vendas.situcaoEstoque" result-set-mapping="situacaoEstoque">
-	    <query>
-	    	SELECT SUM(c.quantidade_estoque) - (SELECT COALESCE(SUM(quantidade), 0) FROM item_venda
-                                      LEFT JOIN venda v on item_venda.codigo_venda = v.codigo
-                                     WHERE v.status = 'EMITIDA') AS itens_estoque,
-       			   SUM(c.valor * (c.quantidade_estoque - (SELECT COALESCE(SUM(quantidade), 0) FROM item_venda
-                                      LEFT JOIN venda v on item_venda.codigo_venda = v.codigo
-                                     WHERE v.status = 'EMITIDA'))) AS valor_estoque
-  			  FROM cerveja c
-	    </query>
-	</named-native-query>
-	
 	<sql-result-set-mapping name="totalPorMesMapping">
 		<constructor-result target-class="com.algaworks.brewer.dto.VendaMes">
 			<column name="mes" class="java.lang.String"/>
 			<column name="total" class="java.lang.Integer"/>
-		</constructor-result>
-	</sql-result-set-mapping>
-	
-	<sql-result-set-mapping name="situacaoEstoque">
-		<constructor-result target-class="com.algaworks.brewer.dto.DadosEstoqueDTO">
-			<column name="itens_estoque" class="java.lang.Long"/>
-			<column name="valor_estoque" class="java.math.BigDecimal"/>
 		</constructor-result>
 	</sql-result-set-mapping>
 	

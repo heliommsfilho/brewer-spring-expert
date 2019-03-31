@@ -25,7 +25,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
-import com.algaworks.brewer.dto.DadosEstoqueDTO;
 import com.algaworks.brewer.dto.VendaMes;
 import com.algaworks.brewer.model.StatusVenda;
 import com.algaworks.brewer.model.TipoPessoa;
@@ -115,13 +114,6 @@ public class VendasImpl implements VendasQueries {
 		}
 		
 		return vendasMes;
-	}
-	
-	@Override
-	public DadosEstoqueDTO dadosEstoque() {
-		Optional<DadosEstoqueDTO> situacaoEstoque = Optional.ofNullable((DadosEstoqueDTO) manager.createNamedQuery("Vendas.situcaoEstoque").getSingleResult());
-		
-		return situacaoEstoque.orElse(new DadosEstoqueDTO(0L, BigDecimal.ZERO));
 	}
 
 	private void adicionarFiltros(VendaFilter filter, Criteria criteria) {

@@ -2,16 +2,16 @@ package com.algaworks.brewer.dto;
 
 import java.math.BigDecimal;
 
-public class DadosEstoqueDTO {
+public class ValorItensEstoque {
 
 	private Long quantidadeTotalEstoque;
 	private BigDecimal valorTotalEstoque;
 	
-	public DadosEstoqueDTO() {
+	public ValorItensEstoque() {
 		super();
 	}
 
-	public DadosEstoqueDTO(Long quantidadeTotalEstoque, BigDecimal valorTotalEstoque) {
+	public ValorItensEstoque(BigDecimal valorTotalEstoque, Long quantidadeTotalEstoque) {
 		super();
 		this.quantidadeTotalEstoque = quantidadeTotalEstoque;
 		this.valorTotalEstoque = valorTotalEstoque;
