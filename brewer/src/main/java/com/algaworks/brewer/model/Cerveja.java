@@ -35,13 +35,13 @@ public class Cerveja {
 	private Long codigo;
 	
 	@SKU
-	@NotBlank(message = "SKU é obrigatório")
+	@NotBlank
 	private String sku;
 	
-	@NotBlank(message = "Nome é obrigatório")
+	@NotBlank
 	private String nome;
 	
-	@NotBlank(message = "A descrição é obrigatória")
+	@NotBlank
 	@Size(max = 50, message = "A descrição deve ter tamanho entre 1 e 50")
 	private String descricao;
 	
