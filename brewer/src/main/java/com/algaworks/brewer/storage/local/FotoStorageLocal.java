@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.algaworks.brewer.storage.FotoStorage;
@@ -16,13 +17,13 @@ import com.algaworks.brewer.storage.FotoStorage;
 import net.coobird.thumbnailator.Thumbnails;
 import net.coobird.thumbnailator.name.Rename;
 
+@Component
 public class FotoStorageLocal implements FotoStorage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FotoStorageLocal.class);
 	static final String THUMBNAIL_PREFIX = "thumbnail.";
 	
 	private Path local;
-	private Path localTemporario;
 	
 	public FotoStorageLocal() {
 		this(FileSystems.getDefault().getPath(System.getenv("HOMEPATH"), ".brewerFotos"));
@@ -31,22 +32,6 @@ public class FotoStorageLocal implements FotoStorage {
 	public FotoStorageLocal(Path path) {
 		this.local = path;
 		criarPastas();
-	}
-	
-	@Override
-	public void salvar(String foto) {
-		
-		try {
-			Files.move(this.localTemporario.resolve(foto), this.local.resolve(foto));
-		} catch (IOException e) {
-			throw new RuntimeException("Erro ao mover a foto para o destino final");
-		}
-		
-		try {
-			Thumbnails.of(this.local.resolve(foto).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
-		} catch (IOException e) {
-			throw new RuntimeException("Erro ao gerar thumbnail");
-		}
 	}
 	
 	@Override
@@ -75,7 +60,7 @@ public class FotoStorageLocal implements FotoStorage {
 	}
 
 	@Override
-	public String salvarTemporariamente(MultipartFile[] files) {
+	public String salvar(MultipartFile[] files) {
 		
 		String novoNome = null;
 		
@@ -84,37 +69,30 @@ public class FotoStorageLocal implements FotoStorage {
 			novoNome = renomearArquivo(arquivo.getOriginalFilename());
 			
 			try {
-				arquivo.transferTo(new File(this.localTemporario.toAbsolutePath().toString() + FileSystems.getDefault().getSeparator() + novoNome));
+				arquivo.transferTo(new File(this.local.toAbsolutePath().toString() + FileSystems.getDefault().getSeparator() + novoNome));
 			} catch (IOException e) {
-				throw new RuntimeException("Erro ao salvar a fot na past teporária");
+				throw new RuntimeException("Erro ao salvar a foto", e);
 			}
 		}
 		
-		return novoNome;
-	}
-	
-	@Override
-	public byte[] recuperarFotoTemporaria(String nomeFoto) {
-		
 		try {
-			return Files.readAllBytes(this.localTemporario.resolve(nomeFoto));
+			Thumbnails.of(this.local.resolve(novoNome).toString()).size(40, 68).toFiles(Rename.PREFIX_DOT_THUMBNAIL);
 		} catch (IOException e) {
-			throw new RuntimeException("Erro ao ler a foto temporária");
+			throw new RuntimeException("Erro ao gerar thumbnail");
 		}
+		
+		return novoNome;
 	}
 	
 	private void criarPastas() {
 		
 		try {
 			Files.createDirectories(this.local);
-			this.localTemporario = FileSystems.getDefault().getPath(this.local.toString(), "temp");
-			Files.createDirectories(this.localTemporario);
 			
 			
 			if (LOGGER.isDebugEnabled()) {
 				LOGGER.debug("Pastas das fotos criadas");
 				LOGGER.debug("Pasta default: " + this.local.toString());
-				LOGGER.debug("Pasta temporária: " + this.localTemporario.toAbsolutePath());
 			}
 		} catch (IOException e) {
 			throw new RuntimeException("Erro ao criar pasta para salvar a foto", e);

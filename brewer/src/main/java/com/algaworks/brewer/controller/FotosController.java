@@ -30,11 +30,12 @@ public class FotosController {
 		
 		return resultado;
 	}
-	
-	@GetMapping("/temp/{nome:.*}")
-	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
-		return fotoStorage.recuperarFotoTemporaria(nome);
-	}
+
+// Não será mais utilizado após o S3
+//	@GetMapping("/temp/{nome:.*}")
+//	public byte[] recuperarFotoTemporaria(@PathVariable String nome) {
+//		return fotoStorage.recuperarFotoTemporaria(nome);
+//	}
 	
 	@GetMapping("/{nome:.*}")
 	public byte[] recuperar(@PathVariable("nome") String nomeFoto) {

@@ -6,14 +6,15 @@ import org.springframework.stereotype.Component;
 
 import com.algaworks.brewer.storage.FotoStorage;
 
-@Component
+// Não será mais utilizado após o S3
+//@Component
 public class CervejaListener {
 
-	@Autowired
-	private FotoStorage fotoStorage;
+//	@Autowired
+//	private FotoStorage fotoStorage;
 	
-	@EventListener(condition = "#evento.temFoto() and #evento.isFotoNova()")
-	public void cervejaSalva(CervejaSalvaEvent evento) {
-		fotoStorage.salvar(evento.getCerveja().getFoto());
-	}
+//	@EventListener(condition = "#evento.temFoto() and #evento.isFotoNova()")
+//	public void cervejaSalva(CervejaSalvaEvent evento) {
+//		fotoStorage.salvar(evento.getCerveja().getFoto());
+//	}
 }
