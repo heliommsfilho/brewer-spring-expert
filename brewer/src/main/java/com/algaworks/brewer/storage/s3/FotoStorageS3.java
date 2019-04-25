@@ -1,10 +1,12 @@
 package com.algaworks.brewer.storage.s3;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.algaworks.brewer.storage.FotoStorage;
 
+@Profile("prod")
 @Component
 public class FotoStorageS3 implements FotoStorage {
 
@@ -31,5 +33,10 @@ public class FotoStorageS3 implements FotoStorage {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+	@Override
+	public String getUrl(String foto) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
