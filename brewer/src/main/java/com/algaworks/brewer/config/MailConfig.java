@@ -30,8 +30,8 @@ public class MailConfig {
 		mailSender.setUsername(env.getProperty("email.username"));
 		mailSender.setPassword(env.getProperty("password"));
 		
-		System.out.println("API Username: " + env.getProperty("email.username"));
-		System.out.println("API Password: " + env.getProperty("password"));
+		System.out.println("API Username: " + env.getProperty("SENDGRID_USERNAME"));
+		System.out.println("API Password: " + env.getProperty("SENDGRID_PASSWORD"));
 
 		Properties props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
