@@ -106,7 +106,7 @@ public class CervejasImpl implements CervejasQueries {
 													.setParameter("skuOuNome", skuOuNome + "%")
 													.getResultList();
 		
-		cervejasFiltradas.forEach(c -> c.setUrlThumbnailFoto(FotoStorage.THUMBNAIL_PERFIX + c.getFoto()));
+		cervejasFiltradas.forEach(c -> c.setUrlThumbnailFoto(fotoStorage.getUrl(FotoStorage.THUMBNAIL_PERFIX + c.getFoto())));
 		return cervejasFiltradas;
 	}
 
