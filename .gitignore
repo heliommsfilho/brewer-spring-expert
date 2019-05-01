@@ -23,5 +23,6 @@ hs_err_pid*
 .metadata/
 Servers/
 .recommenders/
-/RemoteSystemsTempFiles
-RemoteSystemsTempFiles
+RemoteSystemsTempFiles/
+brewer/.project
+brewer/.settings
