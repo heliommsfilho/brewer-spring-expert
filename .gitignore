@@ -26,3 +26,5 @@ Servers/
 RemoteSystemsTempFiles/
 brewer/.project
 brewer/.settings/
+.project
+org.eclipse.wst.common.component
