@@ -27,7 +27,7 @@ public class FotoStorageLocal implements FotoStorage {
 	private Path local;
 	
 	public FotoStorageLocal() {
-		this(FileSystems.getDefault().getPath(System.getenv("HOMEPATH"), ".brewerFotos"));
+		this(FileSystems.getDefault().getPath(System.getenv("HOME"), ".brewerFotos"));
 	}
 
 	public FotoStorageLocal(Path path) {

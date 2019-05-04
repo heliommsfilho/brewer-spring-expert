@@ -2,8 +2,9 @@ package com.algaworks.brewer.config;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
-import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+
+import javax.sql.DataSource;
 
 import org.springframework.beans.BeansException;
 import org.springframework.cache.CacheManager;
@@ -19,18 +20,17 @@ import org.springframework.context.support.ReloadableResourceBundleMessageSource
 import org.springframework.data.repository.support.DomainClassConverter;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
-import org.springframework.format.number.NumberStyleFormatter;
 import org.springframework.format.support.DefaultFormattingConversionService;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.validation.Validator;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.i18n.FixedLocaleResolver;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsMultiFormatView;
+import org.springframework.web.servlet.view.jasperreports.JasperReportsViewResolver;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
 import org.thymeleaf.spring4.SpringTemplateEngine;
@@ -66,12 +66,26 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
 		this.applicationContext = context;
 	}
 	
+	@Bean
+	public ViewResolver jasperReportsViewResolver(DataSource dataSource) {
+		JasperReportsViewResolver resolver = new JasperReportsViewResolver();
+		resolver.setPrefix("classpath:/relatorios/");
+		resolver.setSuffix(".jasper");
+		resolver.setViewNames("relatorio_*");
+		resolver.setViewClass(JasperReportsMultiFormatView.class);
+		resolver.setJdbcDataSource(dataSource);
+		resolver.setOrder(0);
+		
+		return resolver;
+	}
+	
 	/* Define o Thymeleaf como View Resolver */
 	@Bean 
 	public ViewResolver ViewResolver() {
 		ThymeleafViewResolver resolver = new ThymeleafViewResolver();
 		resolver.setTemplateEngine(templateEngine());
 		resolver.setCharacterEncoding("UTF-8");
+		resolver.setOrder(1);
 		
 		return resolver;
 	}
