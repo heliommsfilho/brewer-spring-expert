@@ -60,19 +60,6 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 		this.applicationContext = context;
 	}
 	
-//	@Bean
-//	public ViewResolver jasperReportsViewResolver(DataSource dataSource) {
-//		JasperReportsViewResolver resolver = new JasperReportsViewResolver();
-//		resolver.setPrefix("classpath:/relatorios/");
-//		resolver.setSuffix(".jasper");
-//		resolver.setViewNames("relatorio_*");
-//		resolver.setViewClass(JasperReportsMultiFormatView.class);
-//		resolver.setJdbcDataSource(dataSource);
-//		resolver.setOrder(0);
-//		
-//		return resolver;
-//	}
-	
 	/* Define o Thymeleaf como View Resolver */
 	@Bean 
 	public ViewResolver ViewResolver() {
