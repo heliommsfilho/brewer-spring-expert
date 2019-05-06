@@ -81,6 +81,12 @@
 		
 		<!-- JasperReports Fonts -->
 		<jasperreports-fonts.version>6.0.0</jasperreports-fonts.version>
+		
+		<!-- Ehcache -->
+		<ehcache.version>3.4.0</ehcache.version>
+		
+		<!-- JCache -->
+		<jcache.version>1.0.0</jcache.version>
 	</properties>
 
 	<build>
@@ -360,6 +366,22 @@
 		    <groupId>net.sf.jasperreports</groupId>
 		    <artifactId>jasperreports-fonts</artifactId>
 		    <version>${jasperreports-fonts.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- JCache -->
+		<dependency>
+		    <groupId>javax.cache</groupId>
+		    <artifactId>cache-api</artifactId>
+		    <version>${jcache.version}</version>
+		    <scope>compile</scope>
+		</dependency>
+		
+		<!-- Ehcache -->
+		<dependency>
+		    <groupId>org.ehcache</groupId>
+		    <artifactId>ehcache</artifactId>
+		    <version>${ehcache.version}</version>
 		    <scope>compile</scope>
 		</dependency>
 	</dependencies>
