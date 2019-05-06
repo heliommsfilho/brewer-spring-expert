@@ -15,7 +15,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 
 @Configuration
-@PropertySource(value = {"file://${HOME}/.brewer-s3.properties"}, ignoreResourceNotFound = true)
+@PropertySource(value = {"file://${HOMEPATH}/.brewer-s3.properties"}, ignoreResourceNotFound = true)
 public class S3Config {
 
 	@Autowired
