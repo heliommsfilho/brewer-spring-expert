@@ -6,6 +6,8 @@ import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.annotation.PostConstruct;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,19 +26,12 @@ public class FotoStorageLocal implements FotoStorage {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(FotoStorageLocal.class);
 	static final String THUMBNAIL_PREFIX = "thumbnail.";
+	
+	@Value("${brewer.foto-storage-local.local}")
 	private Path local;
 	
 	@Value("${brewer.foto-storage-local.url-base}")
 	private String urlBase;
-	
-	public FotoStorageLocal() {
-		this(FileSystems.getDefault().getPath(System.getenv("HOMEPATH"), ".brewerFotos"));
-	}
-
-	public FotoStorageLocal(Path path) {
-		this.local = path;
-		criarPastas();
-	}
 	
 	@Override
 	public byte[] recuperar(String nomeFoto) {
@@ -93,6 +88,7 @@ public class FotoStorageLocal implements FotoStorage {
 		return novoNome;
 	}
 	
+	@PostConstruct
 	private void criarPastas() {
 		
 		try {
