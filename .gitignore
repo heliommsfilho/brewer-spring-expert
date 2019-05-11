@@ -28,3 +28,10 @@ brewer/.project
 brewer/.settings/
 .project
 org.eclipse.wst.common.component
+/brewer/.classpath
+/brewer/.settings/.jsdtscope
+/brewer/.settings/org.eclipse.jdt.core.prefs
+/brewer/.settings/org.eclipse.wst.common.project.facet.core.xml
+/brewer/.settings/org.eclipse.wst.jsdt.ui.superType.container
+/brewer/.settings/org.eclipse.wst.jsdt.ui.superType.name
+/brewer/.settings/org.eclipse.wst.validation.prefs
