@@ -1,4 +1,4 @@
-package com.algaworks.brewer.config;
+package com.algaworks.brewer.config.formatter;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
