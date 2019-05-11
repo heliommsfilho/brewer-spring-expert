@@ -1,1 +1,0 @@
-INSERT INTO usuario (nome, email, senha, ativo, data_nascimento) VALUES ('Administrador', 'admin@brewer.com.br', '$2a$10$Q9DEyxzv.9iLzmhKB8tOSOMoGJojnwRCc9RLFMd96/hqC2gkSni.e', 1, '1994-06-16');
